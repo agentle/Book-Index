@@ -9,47 +9,32 @@ def for_grandpa(dict1={}):
     5. Naming each index ------------------------- DONE -----
     """
     
+    import re
     print()
     
-    flag1 = True
-    while flag1:
-        
-        new = input("Do you want to add on to a previous index? ")
-        print()
-        
-        if new.startswith("N") or new.startswith("n"):
-            index_name = input("What do you want to name this index? ")
-            print()
-            flag1 = False
-        
-        elif new.startswith("Y") or new.startswith("y"):
-            import_name = input(
-                "What's the name of the index you want to continue? ")
-            if not import_name.endswith(".txt"):
-                import_name.append(".txt")
-            
-        
-    """
-    if dict1 != {}:
-        new = input("Do you want to continue your last entry? (Yes/No) ")
-        print()
-        
-        if new.startswith("N") or new.startswith("n"):
-            dict1 = {}
-            
-    if dict1 == {}:
-        index_name = input("What do you want to name this index? ")
-        print()
-    """
+    index_name = input("What is the name of the index you want to create or \
+open? (Capitalization is important) ")
+    print()
+    if not index_name.endswith(".txt"):
+        index_name += ".txt"
     
-    flag2 = True
+    file = open(index_name, "a+")
+    lines = file.readlines()
+    if lines == []:
+        print("Creating a new text file called " + index_name)
+    else:
+        print("Continuing the text file " + index_name)
+    print()
+
     
-    while flag2:
+    flag = True
+    
+    while flag:
         answer1 = input("Do you want to input something? ")
         print()
         
         if answer1.startswith("N") or answer1.startswith("n"):
-            flag2 = False
+            flag = False
             
         else:
             answer2 = input("Do you want to input a name, date, or phrase? ")
