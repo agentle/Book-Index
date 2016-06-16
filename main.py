@@ -4,7 +4,7 @@ def for_grandpa():
     Future Additions:
     1. Mulitple page #s per entry ---------------- DONE -----
     2. Last name then first name ----------------- DONE -----
-    3. Corrections to the index (remove data)
+    3. Corrections to the index (remove data) ---- DONE -----
     4. Saving an index as a file (.txt?) --------- DONE -----
     5. Naming each index ------------------------- DONE -----
     """
@@ -26,12 +26,6 @@ open? ")
         print("Continuing the text file " + index_name)
         for line in lines[5:]:
             match = re.match("(.+)\s\.{4,55}\s([\d\s,]+)", line)
-            
-            #if not match:
-                #match = re.match("(\S+,\s\S+)\s\.+\s([\d\s,]+)", line)
-                
-            #if not match:
-                #match = re.match("(\S+)\s\.+\s([\d\s,]+)", line)
                 
             if match:
                 name = match.group(1)
@@ -61,11 +55,59 @@ open? ")
     flag = True
     
     while flag:
-        answer1 = input("Do you want to input something? ")
+        answer1 = input('Do you want to input, edit, or finish? (Type \
+either "input", "edit", or "finish") ')
         print()
         
-        if answer1.startswith("N") or answer1.startswith("n"):
+        if answer1.startswith("F") or answer1.startswith("f") or \
+        answer1.startswith('"F') or answer1.startswith('"f'):
             flag = False
+        
+        elif answer1.startswith("E") or answer1.startswith("e") or \
+        answer1.startswith('"E') or answer1.startswith('"e'):
+            
+            to_be_edited = input("Do you want to edit a name, \
+date, or phrase? ")
+            print()
+            
+            if to_be_edited.startswith("N") or to_be_edited.startswith("n"):
+                first_name = input("What's their first name? ")
+                print()
+                last_name = input("What's their last name? ")
+                print()
+                
+                key = last_name + ", " + first_name
+            
+            elif to_be_edited.startswith("D") or to_be_edited.startswith("d"):
+                key = input("What date do you want to edit? ")
+                print()
+                
+            elif to_be_edited.startswith("P") or to_be_edited.startswith("p"):
+                key = input("What phrase do you want to edit? (Must be exact) ")
+                print()
+                
+            if key in dict1.keys():
+                pages = ""
+                for i in sorted(dict1[key]):
+                    pages += str(i) + ", "
+                pages = pages[:-2]
+                print("The page numbers associated with that entry are: " + 
+                      pages)
+                remove = input("Please type here all the page numbers you'd \
+like to remove (Ex: 28, 57, 90): ")
+                print()
+                remove += ","
+                to_remove = []
+                for item in remove.split():
+                    to_remove.append(int(item[:-1]))
+                difference = set(dict1[key]) - set(to_remove)
+                del dict1[key]
+                dict1[key] = list(difference)
+            
+            elif key not in dict1.keys():
+                print("It looks like the term you entered isn't stored in the \
+file. Perhaps you mistyped it?")
+                print()                
             
         else:
             answer2 = input("Do you want to input a name, date, or phrase? ")
