@@ -55,12 +55,12 @@ open? ")
     flag = True
     
     while flag:
-        answer1 = input('Do you want to input, edit, or finish? (Type \
-either "input", "edit", or "finish") ')
+        answer1 = input('Do you want to input, edit, or save? (Type \
+either "input", "edit", or "save") ')
         print()
         
-        if answer1.startswith("F") or answer1.startswith("f") or \
-        answer1.startswith('"F') or answer1.startswith('"f'):
+        if answer1.startswith("S") or answer1.startswith("s") or \
+        answer1.startswith('"S') or answer1.startswith('"s'):
             flag = False
         
         elif answer1.startswith("E") or answer1.startswith("e") or \
