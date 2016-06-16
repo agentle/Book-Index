@@ -14,8 +14,9 @@ def for_grandpa():
     print()
     
     index_name = input("What is the name of the index you want to create or \
-open? (Capitalization is important) ")
+open? ")
     print()
+    
     if not index_name.endswith(".txt"):
         index_name += ".txt"
     
@@ -24,9 +25,14 @@ open? (Capitalization is important) ")
         lines = file.readlines()
         print("Continuing the text file " + index_name)
         for line in lines[5:]:
-            match = re.match("(\S+)\s---\s([\d\s,]+)", line)
-            if not match:
-                match = re.match("(\S+,\s\S+)\s---\s([\d\s,]+)", line)
+            match = re.match("(.+)\s\.{4,55}\s([\d\s,]+)", line)
+            
+            #if not match:
+                #match = re.match("(\S+,\s\S+)\s\.+\s([\d\s,]+)", line)
+                
+            #if not match:
+                #match = re.match("(\S+)\s\.+\s([\d\s,]+)", line)
+                
             if match:
                 name = match.group(1)
                 pages = match.group(2)
@@ -42,7 +48,6 @@ open? (Capitalization is important) ")
                         list1.append(int(page[:-1]))
                         dict1[name] = list1
                         
-
     
     except FileNotFoundError:
         file = open(index_name, "a+")
@@ -67,10 +72,12 @@ open? (Capitalization is important) ")
             print()
             
             if answer2.startswith("N") or answer2.startswith("n"):
+                
                 first_name = input("What's their first name? ")
                 print()
                 last_name = input("What's their last name? ")
                 print()
+                
                 name = last_name + ", " + first_name
                 pages = input(
                     "What pages was the name on? (Ex: 34, 32, 56, 338) ")
@@ -89,9 +96,11 @@ open? (Capitalization is important) ")
             elif answer2.startswith("D") or answer2.startswith("d"):
                 date = input("What date do you want to input? ")
                 print()
+                
                 pages = input(
                     "What pages was the date on? (Ex: 34, 32, 56, 338) ")
                 print()
+                
                 pages += ","
                 
                 for page in pages.split():
@@ -106,9 +115,11 @@ open? (Capitalization is important) ")
             elif answer2.startswith("P") or answer2.startswith("p"):
                 phrase = input("What phrase do you want to input? ")
                 print()
+                
                 pages = input(
                     "What pages was the phrase on? (Ex: 34, 32, 56, 338) ")
                 print()
+                
                 pages += ","
                 
                 for page in pages.split():
@@ -123,30 +134,33 @@ open? (Capitalization is important) ")
     file = open(index_name, "w")  # NOTICE: deletes the file and then rewrites
     file.write(index_name)
     file.write("\n\n\n")
-    file.write("Name/Date/Phrase --- Page Numbers")
+    file.write("Name/Date/Phrase " + 39 * "." + " Page Numbers")
     file.write("\n\n")
+    
     for key, values in sorted(dict1.items()):
         string1 = ""
             
         for value in sorted(values):
             string1 += str(value) + ", "
             
-        file.write(key + " --- " + string1[:-2])
+        file.write(key + " " + ((55 - int(len(key))) * ".") + " " 
+                   + string1[:-2])
         file.write("\n\n")
 
     print("\n" * 5)
     print(index_name)
     print()
     print()
-    print("Name/Date/Phrase --- Page Numbers")
+    print("Name/Date/Phrase " + 39 * "." + " Page Numbers")
     print()
+    
     for key, values in sorted(dict1.items()):
         string1 = ""
         
         for value in sorted(values):
             string1 += str(value) + ", "
-        
-        print(key + " --- " + string1[:-2])
+
+        print(key + " " + ((55 - int(len(key))) * ".") + " " + string1[:-2])
         print()
         
 for_grandpa()
