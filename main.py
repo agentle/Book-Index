@@ -7,6 +7,7 @@ def for_grandpa():
     3. Corrections to the index (remove data) ---- DONE -----
     4. Saving an index as a file (.txt?) --------- DONE -----
     5. Naming each index ------------------------- DONE -----
+    6. Correcting naming scheme ------------------ DONE -----
     """
     
     import re
@@ -71,13 +72,19 @@ date, or phrase? ")
             print()
             
             if to_be_edited.startswith("N") or to_be_edited.startswith("n"):
-                first_name = input("What's their first name? ")
-                print()
-                last_name = input("What's their last name? ")
-                print()
-                
-                key = last_name + ", " + first_name
-            
+                name = input("What is their name? ")
+                if "," in name:
+                    key = name
+                else:
+                    individual_names = name.split()
+                    if len(individual_names) <= 1:
+                        key = name
+                    else:
+                        key = individual_names[-1] + ","
+                        individual_names = individual_names[:-1]
+                        for i in individual_names:
+                            key += " " + i
+                            
             elif to_be_edited.startswith("D") or to_be_edited.startswith("d"):
                 key = input("What date do you want to edit? ")
                 print()
@@ -91,15 +98,19 @@ date, or phrase? ")
                 for i in sorted(dict1[key]):
                     pages += str(i) + ", "
                 pages = pages[:-2]
+                
                 print("The page numbers associated with that entry are: " + 
                       pages)
                 remove = input("Please type here all the page numbers you'd \
 like to remove (Ex: 28, 57, 90): ")
                 print()
+                
                 remove += ","
                 to_remove = []
+                
                 for item in remove.split():
                     to_remove.append(int(item[:-1]))
+                    
                 difference = set(dict1[key]) - set(to_remove)
                 del dict1[key]
                 dict1[key] = list(difference)
@@ -115,12 +126,21 @@ file. Perhaps you mistyped it?")
             
             if answer2.startswith("N") or answer2.startswith("n"):
                 
-                first_name = input("What's their first name? ")
-                print()
-                last_name = input("What's their last name? ")
-                print()
-                
-                name = last_name + ", " + first_name
+                initial_name = input("What is their name? ")
+                if "," in initial_name:
+                    name = initial_name
+                    
+                else:
+                    individual_names = initial_name.split()
+                    
+                    if len(individual_names) <= 1:
+                        name = initial_name
+                    else:
+                        name = individual_names[-1] + ","
+                        individual_names = individual_names[:-1]
+                        for i in individual_names:
+                            name += " " + i
+                            
                 pages = input(
                     "What pages was the name on? (Ex: 34, 32, 56, 338) ")
                 print()
